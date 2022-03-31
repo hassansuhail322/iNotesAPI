@@ -6,7 +6,7 @@ const router = express.Router();
 
 const Notes = require("../models/notesModel");
 const User = require("../models/User");
-const { type } = require("@testing-library/user-event/dist/type");
+// const { type } = require("@testing-library/user-event/dist/type");
 
 // Route to get the user notes from db   login required : done by fetch user (middleware) by checking token given by user and taking out the User id from token
 router.get("/fetchnotes", fetchUser, async (req, res) => {
@@ -92,7 +92,9 @@ router.put("/updatenote/:id", fetchUser, async (req, res) => {
       { $set: updatedNote },
       { new: true }
     );
-    res.send(note);
+
+  
+    res.send("hassan");
   } catch (error) {
     res.status(501).send("Error in update ");
   }
@@ -119,14 +121,7 @@ router.delete("/deletenote/:id", fetchUser, async (req, res) => {
       return res.send("dusre ka edit krega ff");
     }
 
-    // Notes.findOneAndDelete({ id : , function (err, docs) {
-    //   if (err){
-    //       console.log(err)
-    //   }
-    //   else{
-    //       console.log("Deleted User : ", docs);
-    //   }
-
+  
     let ans = await Notes.findByIdAndRemove(req.params.id);
     res.send(ans);
   
